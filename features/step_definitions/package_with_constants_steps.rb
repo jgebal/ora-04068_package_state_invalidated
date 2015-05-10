@@ -1,7 +1,7 @@
 require_relative '../../config/common_helper'
 
 Given(/^I have accessed a package containing constants$/) do
-  pending
+  plsql.package_with_constant.some_constant
 end
 
 
