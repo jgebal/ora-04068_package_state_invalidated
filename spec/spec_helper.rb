@@ -10,7 +10,11 @@ RSpec.configure do |config|
     example.run
 
     get_db_connections.each do |name|
-      plsql(name).rollback_to 'before_each'
+      begin
+        plsql(name).rollback_to 'before_each'
+      rescue OCIError
+        raise unless $!.inspect.match('ORA-01086') #ignore failure on rollback to savepoint
+      end
     end
   end
 
